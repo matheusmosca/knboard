@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense } from "react";
 import { Provider, useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
+import { ConfirmProvider } from "material-ui-confirm";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Global, css } from "@emotion/core";
 
@@ -35,22 +36,24 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AuthWrapper />
-          <Toast />
-          <Global
-            styles={css`
-              .Mui-focusVisible {
-                box-shadow: 0 0 3px 2px ${FOCUS_BOX_SHADOW};
-              }
-              textarea {
-                font-family: inherit;
-              }
-              .MuiAutocomplete-popper {
-                z-index: ${modalPopperAutocompleteModalIndex} !important;
-              }
-            `}
-          />
+          <ConfirmProvider>
+            <CssBaseline />
+            <AuthWrapper />
+            <Toast />
+            <Global
+              styles={css`
+                .Mui-focusVisible {
+                  box-shadow: 0 0 3px 2px ${FOCUS_BOX_SHADOW};
+                }
+                textarea {
+                  font-family: inherit;
+                }
+                .MuiAutocomplete-popper {
+                  z-index: ${modalPopperAutocompleteModalIndex} !important;
+                }
+              `}
+            />
+          </ConfirmProvider>
         </ThemeProvider>
       </Router>
     </Provider>
