@@ -8849,6 +8849,11 @@ markdown-it@10.0.0:
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
+material-ui-confirm@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/material-ui-confirm/-/material-ui-confirm-2.1.1.tgz#dbc3ff66502a183966a3f0a2ebb2ff8ba22a148d"
+  integrity sha512-d671LgozdJP54buZTv+Eemo0ySYTCXF3QqfYKO7axoG/8g659G5+aD7PovYupsfSSOXOzyzpYRhjbIhE4yrPHA==
+
 material-ui-popup-state@1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/material-ui-popup-state/-/material-ui-popup-state-1.5.4.tgz#56cf7f7f8016a07057cfc45f8e58893258cbfed2"
