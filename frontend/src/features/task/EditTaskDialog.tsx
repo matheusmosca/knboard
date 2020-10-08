@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   WithTheme,
 } from "@material-ui/core";
+import { useConfirm } from "material-ui-confirm";
 import { RootState } from "store";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -165,6 +166,7 @@ const ButtonsContainer = styled.div`
 const DESCRIPTION_PLACEHOLDER = "Write here...";
 
 const EditTaskDialog = () => {
+  const windowConfirm = useConfirm();
   const theme = useTheme();
   const dispatch = useDispatch();
   const columns = useSelector(selectAllColumns);
@@ -324,10 +326,14 @@ const EditTaskDialog = () => {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure? Deleting a task cannot be undone.")) {
+    windowConfirm({
+      description: "Are you sure? Deleting a task cannot be undone.",
+      confirmationButtonProps: { color: "primary" },
+      cancellationButtonProps: { color: "primary" },
+    }).then(() => {
       dispatch(deleteTask(task.id));
       handleClose();
-    }
+    });
   };
 
   const handleDescriptionClick = () => {
