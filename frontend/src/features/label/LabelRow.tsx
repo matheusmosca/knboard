@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@material-ui/core";
+import { useConfirm } from "material-ui-confirm";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { patchLabel, deleteLabel } from "./LabelSlice";
@@ -38,6 +39,7 @@ interface DialogFormData {
 }
 
 const LabelRow = ({ label }: RowProps) => {
+  const windowConfirm = useConfirm();
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
   const detail = useSelector((state: RootState) => state.board.detail);
@@ -56,13 +58,14 @@ const LabelRow = ({ label }: RowProps) => {
   });
 
   const handleDelete = () => {
-    if (
-      window.confirm(
-        "Are you sure? Deleting a label will remove it from all tasks."
-      )
-    ) {
+    windowConfirm({
+      description:
+        "Are you sure? Deleting a label will remove it from all tasks.",
+      confirmationButtonProps: { color: "primary" },
+      cancellationButtonProps: { color: "primary" },
+    }).then(() => {
       dispatch(deleteLabel(label.id));
-    }
+    });
   };
 
   return (
