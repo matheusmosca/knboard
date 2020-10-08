@@ -6,6 +6,7 @@ import { TextareaAutosize, Button, Popover } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useConfirm } from "material-ui-confirm";
 import { Id } from "types";
 import { patchColumn, deleteColumn } from "features/column/ColumnSlice";
 import { css } from "@emotion/core";
@@ -86,6 +87,7 @@ interface Props {
 }
 
 const ColumnTitle = ({ id, title, tasksCount, ...props }: Props) => {
+  const windowConfirm = useConfirm();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -141,14 +143,15 @@ const ColumnTitle = ({ id, title, tasksCount, ...props }: Props) => {
   };
 
   const handleDelete = () => {
-    if (
-      window.confirm(
-        "Are you sure? Deleting the column will also delete related tasks and this cannot be undone."
-      )
-    ) {
+    windowConfirm({
+      description:
+        "Are you sure? Deleting the column will also delete related tasks and this cannot be undone.",
+      confirmationButtonProps: { color: "primary" },
+      cancellationButtonProps: { color: "primary" },
+    }).then(() => {
       dispatch(deleteColumn(id));
       handleOptionsClose();
-    }
+    });
   };
 
   const open = Boolean(anchorEl);
